@@ -19,6 +19,11 @@ def save_student(name, grades, data, path):
     storage.save_data(path, data)
 
 
+def delete_student(name, data, path):
+    data.pop(name)
+    storage.save_data(path, data)
+
+
 def main():
     print('== CRUD zinho ==')
     path = 'data.json'
@@ -41,6 +46,11 @@ def main():
             grades = input_grades('Notas atualizadas, separadas por espaço: ')
             save_student(name, grades, students, path)
             print(f'Notas de {name} atualizadas')
+        elif cmd == 'delete':
+            students = storage.load_data(path)
+            name = input('Nome do estudante que será removido: ').strip()
+            delete_student(name, students, path)
+            print(f'O estudante {name} foi removido')
 
 
 if __name__ == '__main__':
