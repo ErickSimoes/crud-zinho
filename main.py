@@ -76,7 +76,6 @@ def main():
             print(f'O estudante {name} foi removido')
         elif cmd == 'list':
             students = storage.load_data(path)
-            # listar todos os estudantes
             list_students(students)
 
 
