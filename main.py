@@ -24,12 +24,26 @@ def delete_student(name, data, path):
     storage.save_data(path, data)
 
 
+def avg_grades(grades):
+    return sum(grades) / len(grades)
+
+
+def read_student(name, data):
+    grades = data.get(name)
+    return grades, avg_grades(grades)
+
+
+def list_students(data):
+    for name, grades in data.items():
+        print(f'- {name} \t{grades}\t{avg_grades(grades)}')
+
+
 def main():
     print('== CRUD zinho ==')
     path = 'data.json'
     
     while True:
-        print('Comandos disponíveis: create, read, update, delete, list, avg, exit')
+        print('Comandos disponíveis: create, read, update, delete, list, exit')
         cmd = input('Comando: ').strip().lower()
 
         if cmd == 'exit':
@@ -40,6 +54,11 @@ def main():
             name = input('Nome do estudante: ').strip()
             grades = input_grades()
             save_student(name, grades, students, path)
+        elif cmd == 'read':
+            students = storage.load_data(path)
+            name = input('Nome do estudante pesquisado: ').strip()
+            grades, avg = read_student(name, students)
+            print(f'O estudante {name} possuis as seguintes notas: {grades} (média = {avg})')
         elif cmd == 'update':
             students = storage.load_data(path)
             name = input('Nome do estudante que terá as notas atualizadas: ').strip()
@@ -51,6 +70,10 @@ def main():
             name = input('Nome do estudante que será removido: ').strip()
             delete_student(name, students, path)
             print(f'O estudante {name} foi removido')
+        elif cmd == 'list':
+            students = storage.load_data(path)
+            # listar todos os estudantes
+            list_students(students)
 
 
 if __name__ == '__main__':
