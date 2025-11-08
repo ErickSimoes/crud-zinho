@@ -3,6 +3,10 @@ import storage
 
 def input_grades(msg = 'Insira as notas do estudante, separadas por espaço: '):
     grades = input(msg).strip().split()
+
+    if len(grades) != 4:
+        print('Precisa ter exatamente 4 nota!')
+        return
     
     grades = [float(g) for g in grades] # list comprehension
 
