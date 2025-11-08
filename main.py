@@ -1,8 +1,8 @@
 import storage
 
 
-def input_grades():
-    grades = input('Insira as notas do estudante, separadas por espaço: ').strip().split()
+def input_grades(msg = 'Insira as notas do estudante, separadas por espaço: '):
+    grades = input(msg).strip().split()
     
     grades = [float(g) for g in grades] # list comprehension
 
@@ -35,6 +35,12 @@ def main():
             name = input('Nome do estudante: ').strip()
             grades = input_grades()
             save_student(name, grades, students, path)
+        elif cmd == 'update':
+            students = storage.load_data(path)
+            name = input('Nome do estudante que terá as notas atualizadas: ').strip()
+            grades = input_grades('Notas atualizadas, separadas por espaço: ')
+            save_student(name, grades, students, path)
+            print(f'Notas de {name} atualizadas')
 
 
 if __name__ == '__main__':
